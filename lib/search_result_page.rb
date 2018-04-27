@@ -55,4 +55,4 @@ class SearchResultPage < BasePage
 		freelancers = search_result
 		freelancers[number-1].click
 	end
-end	
+end
