@@ -1,12 +1,11 @@
 require_relative './base_page'
 
-
 class MainPage < BasePage
 
 	SEARCH_TYPE_DROPDOWN   = { css: "div[data-qa='s_button']"       }
 	SEARCH_FREELANCERS     = { css: "a[data-qa='freelancer_value']" }
-	SEARCH_JOB   	       = { css: "a[data-qa='freelancer_value']" }
-    SEARCH_BOX			   = { css: "input[data-qa='s_input']"      }
+	SEARCH_JOB   	         = { css: "a[data-qa='freelancer_value']" }
+  SEARCH_BOX			       = { css: "input[data-qa='s_input']"      }
 
 	attr_reader :driver
 

@@ -2,10 +2,11 @@ require_relative './base_page'
 
 class ProfilePage < BasePage
 	JOB_TITLE              = { css: "span.up-active-context.up-active-context-title.fe-job-title" }
-	DESCRIPTION            = { css: "p[itemprop='description']" }
-	HOURLY_RATE   	       = { css: "span.up-active-context span[itemprop='pricerange']" }
-  PROFILE_NAME           = { css: "div.media-body h2.m-xs-bottom span[itemprop='name']"}
-  SKILLS                 = { css: "div.o-profile-skills.m-sm-top.ng-scope'"}
+	DESCRIPTION            = { css: "p[itemprop='description']" 																	}
+	HOURLY_RATE   	       = { css: "span.up-active-context span[itemprop='pricerange']" 					}
+	EARNED                 = { css: "h3.m-xs-bottom > span[itemprop='pricerange']"								}
+  PROFILE_NAME           = { css: "div.media-body h2.m-xs-bottom span[itemprop='name']"					}
+  SKILLS                 = { css: "a.o-tag-skill"											                          }
 	attr_reader :driver
 
 	def initialize(driver)
@@ -26,6 +27,10 @@ class ProfilePage < BasePage
 
 	def hourly_rate
 		text_of(HOURLY_RATE)
+	end
+
+	def skills
+		find_all(SKILLS).map {|skill| skill.text}.reject(&:empty?)
 	end 
 
 	def is_displayed?
@@ -41,13 +46,18 @@ class ProfilePage < BasePage
 	end 
 
 	def compare_with(freelancer)
-		profile_items = { job_title: job_title, name: name, hourly_rate: hourly_rate }
-		freelancers_items = { job_title: freelancer.job_title, 
-														name: freelancer.name, hourly_rate: freelancer.hourly_rate 
-													}
+		profile_items = { job_title: job_title, name: name, hourly_rate: hourly_rate, job_description: job_description, skills: skills}
+		freelancers_items = freelancer.attributes
 		profile_items.each do |key,value|
-			condition = "does not" if not value == freelancers_items[key]
-			puts "Profile's #{key} #{condition} match with data from search results"
+		condition = case key 
+								when :job_description
+									"does not" if not freelancers_items[key].chomp("...").split(" ") - value.gsub("\n", " ").split(" ") 
+								when :skills
+									"does not" if not (freelancers_items[key] - value).empty?
+								else
+									"does not" if not value == freelancers_items[key]
+								end
+		puts "Profile's #{key} #{condition} match with data from search results"
 		end
 	end
 

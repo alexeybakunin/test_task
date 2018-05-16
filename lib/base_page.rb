@@ -12,12 +12,12 @@ class BasePage
     driver.get(ENV['base_url'] + url)
  	end
 
-  def find(locator)
-    driver.find_element locator
+  def find(locator, browser=driver)
+    browser.find_element locator
   end
 
-  def find_all(locator)
-    driver.find_elements locator
+  def find_all(locator, browser=driver)
+    browser.find_elements locator
    end
 
   def clear(locator)
@@ -36,11 +36,11 @@ class BasePage
     find(locator).click
   end
 
-  def text_of(locator)
-    find(locator).text
-  end
-
   def title
     driver.title
+  end
+
+  def text_of(locator)
+    find(locator).text
   end
 end
