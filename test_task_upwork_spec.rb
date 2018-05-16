@@ -1,7 +1,7 @@
-require_relative './lib/base_page'
-require_relative './lib/main_page'
-require_relative './lib/profile_page'
-require_relative './lib/search_result_page'
+require_relative './lib/helpers/base_page'
+require_relative './lib/pages/main_page'
+require_relative './lib/pages/profile_page'
+require_relative './lib/pages/search_result_page'
 
 
 ENV['base_url'] = 'http://www.upwork.com'

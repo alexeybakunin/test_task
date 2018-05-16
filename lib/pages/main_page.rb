@@ -1,4 +1,4 @@
-require_relative './base_page'
+require_relative '../helpers/base_page'
 
 class MainPage < BasePage
 

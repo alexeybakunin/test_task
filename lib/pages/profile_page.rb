@@ -1,4 +1,4 @@
-require_relative './base_page'
+require_relative '../helpers/base_page'
 
 class ProfilePage < BasePage
 	JOB_TITLE              = { css: "span.up-active-context.up-active-context-title.fe-job-title" }

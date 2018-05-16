@@ -1,4 +1,4 @@
-require_relative './base_page'
+require_relative '../helpers/base_page'
 require_relative './freelancer'
 
 class SearchResultPage < BasePage
