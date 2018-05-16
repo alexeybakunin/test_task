@@ -1,16 +1,17 @@
 require_relative '../../spec_helper'
-
+# Base page helper to incapsulate work with driver. 
+# Contains basic actions with driver
 class BasePage
 
   attr_reader :driver
 
   def initialize(driver)
     @driver = driver
- 	end
+  end
 
   def visit(url='/')
     driver.get(ENV['base_url'] + url)
- 	end
+  end
 
   def find(locator, browser=driver)
     browser.find_element locator
@@ -42,5 +43,17 @@ class BasePage
 
   def text_of(locator)
     find(locator).text
+  end
+  # method to prevent StaleElementReferenceError 
+  # and Selenium::WebDriver::Error::NoSuchElementError in future steps if page was not loaded completely first time
+  def is_displayed?(locators)
+    5.times do
+      begin
+        locators.each {|locator| locator.displayed?}
+        break
+        rescue Selenium::WebDriver::Error::StaleElementReferenceError, Selenium::WebDriver::Error::NoSuchElementError
+       next
+      end
+    end
   end
 end

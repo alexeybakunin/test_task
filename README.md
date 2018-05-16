@@ -9,8 +9,7 @@ Mac:
 Linux:  
 `sudo apt-get install chromedriver` 
 `sudo apt-get install geckodriver` 
-
+For any other supported drivers please download it from https://www.seleniumhq.org/about/platforms.jsp and put into directory that in your PATH
 **Running**  
 `ruby test_task_upwork_spec.rb firefox Ruby`   
 where "firefox" is a browser and "Ruby" is a keyword.  
-Supported browsers: chrome, firefox
